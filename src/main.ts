@@ -3,6 +3,7 @@ import {Form} from './components/Form'
 import {TaskList} from './components/List'
 import { TaskInterface } from './models/task.model'
 import {Task} from './components/Task'
+import {v4} from 'uuid'
 
 
 let tasks:TaskInterface[] = []
@@ -24,16 +25,20 @@ taskForm?.addEventListener('submit',(e)=>{
   const title = taskForm['title'] as unknown as HTMLInputElement
   const description = taskForm['description'] as unknown as HTMLTextAreaElement
 
-  tasks.push({
+  const newTask = {
     title: title.value,
-    description: description.value
-  })
+    description: description.value,
+    id: v4()
+  }
+
+  tasks.push(newTask)
 
   localStorage.setItem('task', JSON.stringify(tasks))
-  addTask({
-    title: title.value,
-    description: description.value
-  })
+
+  addTask(newTask)
+
+  title.value = ''
+  description.value = ''
 })
 
 
@@ -42,12 +47,22 @@ document.addEventListener("DOMContentLoaded",()=>{
   renderTask(tasks)
 })
 
+
+const deleteTask = (id:string) => {
+  const newTask = tasks.filter((e)=> e.id !== id)
+  tasks = newTask
+
+  localStorage.setItem('task', JSON.stringify(tasks))
+
+  console.log(newTask)
+}
+
 const renderTask = (item:TaskInterface[]) => {
   item.map((e)=>{
-      taskList!.innerHTML += Task(e)
+      taskList!.append(Task(e,deleteTask))
   })
 }
 
 const addTask = (task:TaskInterface) => {
-  taskList!.innerHTML += Task(task)
+  taskList!.append(Task(task,deleteTask))
 }
