@@ -12,7 +12,7 @@ import Toastify from 'toastify-js'
 let tasks:TaskInterface[] = []
 
 document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
-  <div class='bg-slate-700 w-1/2 p-10 rounded-md >
+  <div class='bg-slate-700 md:w-1/2 md:p-10 p-5 w-full max-w-xs rounded-md ' >
     <h1 class='text-2xl'>Tasks</h1>
     ${Form()}
   </div>
