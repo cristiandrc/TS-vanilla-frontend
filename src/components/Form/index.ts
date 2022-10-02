@@ -1,7 +1,7 @@
 import './style.css'
 export const Form = ():string => {
   return `
-  <form class="flex flex-col justify-center align-middle w-300">
+  <form id='taskForm' class="flex flex-col justify-center align-middle w-300">
 
     <label class"bg-red" for="title" class='block pt-3' >Title</label>
     <input id='title' type="text" name="title" placeHolder="Write a title"
